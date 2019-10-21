@@ -1,0 +1,41 @@
+trigger:
+  batch: true
+  branches:
+    include:
+      - master
+
+variables:
+  - name: vmImage
+    value: ubuntu-18.04
+  - name: imageName
+    value: ps-terraform-agent
+  - name: terraformVersion
+    value: 0.12.10
+  - group: dockerhub
+
+stages:
+  - stage: Build
+    displayName: Build stage
+    jobs:
+      - job: Build
+        displayName: terraform docker image build
+
+        pool:
+          vmImage: $(vmImage)
+
+        steps:
+        - task: Docker@0
+          displayName: docker build
+          inputs:
+            containerregistrytype: 'Container Registry'
+            dockerRegistryConnection: 'rdbartram-docker'
+            buildArguments: 'TERRAFORM_VERSION=$(terraformVersion)'
+            includeLatestTag: true
+
+        - task: Docker@0
+          displayName: docker push
+          inputs:
+            containerregistrytype: 'Container Registry'
+            dockerRegistryConnection: 'rdbartram-docker'
+            action: 'Push an image'
+            includeLatestTag: true
