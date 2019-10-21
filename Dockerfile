@@ -6,7 +6,7 @@ ARG TERRAFORM_URL=https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/
 RUN echo "===> Installing Azure CLI..." \
  && apt-get update \
  && apt-get install -y unzip ca-certificates curl apt-transport-https lsb-release gnupg \
- && curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+ && curl -sL https://aka.ms/InstallAzureCLIDeb | bash \
  && rm -rf /var/lib/apt/lists/*
 
 ADD ${TERRAFORM_URL} /tmp/terraform.zip
