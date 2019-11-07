@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/powershell:windowsservercore-1803
+FROM mcr.microsoft.com/powershell:windowsservercore-1809
 
 ARG TERRAFORM_VERSION=0.12.13
 ARG TERRAFORM_URL=https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_windows_amd64.zip
