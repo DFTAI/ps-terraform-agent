@@ -8,14 +8,14 @@ variables:
   - name: imageName
     value: ps-terraform-agent
   - name: terraformVersion
-    value: 0.12.10
+    value: 0.12.13
 
 stages:
   - stage: Build
     displayName: Build stage
     jobs:
       - job: Ubuntu1804
-        displayName: terraform docker image build
+        displayName: terraform docker image build (Ubuntu 1804)
 
         pool:
           vmImage: ubuntu-latest
@@ -35,7 +35,7 @@ stages:
               latest
       
       - job: Windows
-        displayName: terraform docker image build
+        displayName: terraform docker image build (Windows)
 
         pool:
           vmImage: windows-latest
@@ -52,3 +52,4 @@ stages:
             arguments: 'TERRAFORM_VERSION=$(terraformVersion)'
             tags: |
               windows
+              latest

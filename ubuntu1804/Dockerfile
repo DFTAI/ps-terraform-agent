@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/powershell:ubuntu-18.04
 
-ARG TERRAFORM_VERSION=0.12.10
+ARG TERRAFORM_VERSION=0.12.13
 ARG TERRAFORM_URL=https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
 
 RUN echo "===> Installing Azure CLI..." \
