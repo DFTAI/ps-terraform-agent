@@ -25,7 +25,7 @@ stages:
           displayName: buildAndPush
           inputs:
             containerRegistry: 'rdbartram-docker'
-            repository: dftai
+            repository: dftai/ps-terraform-agent
             command: buildAndPush
             Dockerfile: 'ubuntu1804/Dockerfile'
             buildContext: 'ubuntu1804'
@@ -46,7 +46,7 @@ stages:
           displayName: buildAndPush
           inputs:
             containerRegistry: 'rdbartram-docker'
-            repository: dftai
+            repository: dftai/ps-terraform-agent
             command: buildAndPush
             Dockerfile: 'windows/Dockerfile'
             buildContext: 'windows'
