@@ -5,8 +5,6 @@ trigger:
       - master
 
 variables:
-  - name: vmImage
-    value: ubuntu-18.04
   - name: imageName
     value: ps-terraform-agent
   - name: terraformVersion
@@ -16,25 +14,41 @@ stages:
   - stage: Build
     displayName: Build stage
     jobs:
-      - job: Build
+      - job: Ubuntu1804
         displayName: terraform docker image build
 
         pool:
-          vmImage: $(vmImage)
+          vmImage: ubuntu-latest
 
         steps:
-        - task: Docker@0
-          displayName: docker build
+        - task: Docker@2
+          displayName: buildAndPush
           inputs:
-            containerregistrytype: 'Container Registry'
-            dockerRegistryConnection: 'rdbartram-docker'
-            buildArguments: 'TERRAFORM_VERSION=$(terraformVersion)'
-            includeLatestTag: true
+            containerRegistry: 'rdbartram-docker'
+            repository: dftai
+            command: buildAndPush
+            Dockerfile: 'ubuntu1804/Dockerfile'
+            buildContext: 'ubuntu1804'
+            arguments: 'TERRAFORM_VERSION=$(terraformVersion)'
+            tags: |
+              ubuntu1804
+              latest
+      
+      - job: Windows
+        displayName: terraform docker image build
 
-        - task: Docker@0
-          displayName: docker push
+        pool:
+          vmImage: windows-latest
+
+        steps:
+        - task: Docker@2
+          displayName: buildAndPush
           inputs:
-            containerregistrytype: 'Container Registry'
-            dockerRegistryConnection: 'rdbartram-docker'
-            action: 'Push an image'
-            includeLatestTag: true
+            containerRegistry: 'rdbartram-docker'
+            repository: dftai
+            command: buildAndPush
+            Dockerfile: 'windows/Dockerfile'
+            buildContext: 'windows'
+            arguments: 'TERRAFORM_VERSION=$(terraformVersion)'
+            tags: |
+              windows
