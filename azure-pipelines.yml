@@ -32,6 +32,7 @@ stages:
             arguments: 'TERRAFORM_VERSION=$(terraformVersion)'
             tags: |
               ubuntu1804
+              ubuntu1804-$(terraformVersion)
               latest
       
       - job: Windows
@@ -52,4 +53,5 @@ stages:
             arguments: 'TERRAFORM_VERSION=$(terraformVersion)'
             tags: |
               windows
+              windows-$(terraformVersion)
               latest
